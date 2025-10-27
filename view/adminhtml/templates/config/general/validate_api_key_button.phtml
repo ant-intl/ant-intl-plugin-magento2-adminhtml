@@ -1,0 +1,107 @@
+<?php
+
+declare(strict_types=1);
+
+// @codingStandardsIgnoreFile
+use \Antom\Adminhtml\Block\Adminhtml\Config\ValidateApiKeyButton;
+
+/** @var ValidateApiKeyButton $block */
+/** @var Magento\Framework\View\TemplateEngine\Php $this */
+?>
+
+<?= /* @escapeNotVerified */ $block->getData('send_button') ?>
+
+<script type="text/javascript">
+    require([
+        'jquery',
+        'underscore',
+        'Magento_Ui/js/modal/alert',
+        'mage/translate',
+        'mage/loader',
+        'mage/validation'
+    ], function($, _, modalAlert, $t) {
+        let buttonId = '<?= /* @escapeNotVerified */ $block->getData('button_id'); ?>';
+        function getFieldID (field) {
+            return '#antom_payment_settings_antom_general_' + field;
+        }
+
+        function getFormField() {
+            let environmentValue = $(getFieldID('environment')).val();
+            return {
+                environment: $(getFieldID('environment')),
+                gatewayUrl: $(getFieldID(environmentValue === '0' ? 'antom_sandbox_gateway_url' : 'antom_gateway_url')),
+                clientId: $(getFieldID(environmentValue === '0' ? 'antom_sandbox_client_id' : 'antom_client_id')),
+                merchantPrivateKey: $(getFieldID(environmentValue === '0' ? 'merchant_sandbox_private_key' : 'merchant_private_key')),
+                antomPublicKey: $(getFieldID(environmentValue === '0' ? 'antom_sandbox_public_key' : 'antom_public_key')),
+            };
+        }
+
+        /**
+         *
+         * @returns {{environment: (*|jQuery), apiKey: (*|jQuery)}}
+         */
+        function prepareSendParams() {
+            const form = getFormField();
+            return {
+                environment: form.environment.val(),
+                gatewayUrl: form.gatewayUrl.val(),
+                clientId: form.clientId.val(),
+                merchantPrivateKey: form.merchantPrivateKey.val(),
+                antomPublicKey: form.antomPublicKey.val(),
+            };
+        }
+
+        $('#' + buttonId).click(function (e) {
+            e.preventDefault();
+            showOrHideAjaxLoader('show');
+            validate();
+        });
+
+        function validate() {
+            let form = getFormField();
+            let params = prepareSendParams();
+            let isValid = true;
+
+            _.each(form, function(fieldIns) {
+                if (!(fieldIns.valid() && fieldIns.valid('isValid'))) {
+                    isValid = false;
+                }
+            });
+
+            params.storeId = "<?= /* @escapeNotVerified */ $block->getData('store_id'); ?>";
+            if (isValid) {
+                $.ajax({
+                    url: '<?= /* @escapeNotVerified */ $block->getData('ajax_url'); ?>',
+                    data: params,
+                    dataType: 'json',
+                    success: function (result) {
+                        showOrHideAjaxLoader('hide');
+                        modalAlert({
+                            title: result.isValid ? $t('Success') : $t('Fail'),
+                            content: result.message
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        showOrHideAjaxLoader('hide');
+                        modalAlert({
+                            title: $t('Error'),
+                            content: textStatus + ':' + jqXHR.status + ' \n' + errorThrown
+                        });
+                    }
+                });
+            } else {
+                showOrHideAjaxLoader('hide');
+                modalAlert({
+                    title: $t('Validation Error'),
+                    content: $t('Please check if the fields are filled in correctly ')
+                });
+            }
+        }
+
+        function showOrHideAjaxLoader(action) {
+            $('body').loader(action);
+
+            return true;
+        }
+    })
+</script>
