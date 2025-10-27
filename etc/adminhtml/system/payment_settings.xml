@@ -1,0 +1,181 @@
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <section id="antom_payment_settings" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="20">
+        <class>separator-top</class>
+        <label><![CDATA[Payment Settings]]></label>
+        <tab>antom</tab>
+        <resource>Antom_Adminhtml::configuration</resource>
+
+        <group id="antom_general" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1">
+            <label><![CDATA[General Settings]]></label>
+
+            <field id="environment" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Live Mode]]></label>
+                <config_path>antom/general/environment</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+
+            <field id="antom_client_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Client Id</label>
+                <config_path>antom/general/antom_client_id</config_path>
+                <validate>required-entry</validate>
+                <depends>
+                    <field id="environment">1</field>
+                </depends>
+            </field>
+
+            <field id="antom_sandbox_client_id" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Client Id</label>
+                <config_path>antom/general/antom_sandbox_client_id</config_path>
+                <validate>required-entry</validate>
+                <depends>
+                    <field id="environment">0</field>
+                </depends>
+            </field>
+
+            <field id="merchant_private_key" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Merchant Private Key</label>
+                <config_path>antom/general/merchant_private_key</config_path>
+                <validate>required-entry</validate>
+                <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                <depends>
+                    <field id="environment">1</field>
+                </depends>
+            </field>
+
+            <field id="merchant_sandbox_private_key" translate="label" type="obscure" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Merchant Private Key</label>
+                <config_path>antom/general/merchant_sandbox_private_key</config_path>
+                <validate>required-entry</validate>
+                <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                <depends>
+                    <field id="environment">0</field>
+                </depends>
+            </field>
+
+            <field id="antom_public_key" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Antom Public Key</label>
+                <config_path>antom/general/antom_public_key</config_path>
+                <validate>required-entry</validate>
+                <comment><![CDATA[Get the api key from your Antom Account]]></comment>
+                <depends>
+                    <field id="environment">1</field>
+                </depends>
+            </field>
+
+            <field id="antom_sandbox_public_key" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Antom Public Key</label>
+                <config_path>antom/general/antom_sandbox_public_key</config_path>
+                <validate>required-entry</validate>
+                <comment><![CDATA[Get the api key from your Antom Test Account
+                </div>]]></comment>
+                <depends>
+                    <field id="environment">0</field>
+                </depends>
+            </field>
+
+            <field id="antom_gateway_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Antom Gateway Url</label>
+                <config_path>antom/general/antom_gateway_url</config_path>
+                <validate>required-entry validate-url</validate>
+                <depends>
+                    <field id="environment">1</field>
+                </depends>
+            </field>
+
+            <field id="antom_sandbox_gateway_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Antom Gateway Url</label>
+                <config_path>antom/general/antom_sandbox_gateway_url</config_path>
+                <validate>required-entry validate-url</validate>
+                <depends>
+                    <field id="environment">0</field>
+                </depends>
+            </field>
+
+            <field id="validate_api_key" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label></label>
+                <frontend_model>Antom\Adminhtml\Block\Adminhtml\Config\ValidateApiKeyButton</frontend_model>
+            </field>
+
+            <field id="debug" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Enable Debug Mode]]></label>
+                <config_path>antom/general/debug</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+        </group>
+
+        <group id="antom_card_payment_settings" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Card</label>
+            <field id="antom_card" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Enable Card Payment</label>
+                <config_path>payment/antom_card/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="antom_card_visa" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Visa Enabled]]></label>
+                <config_path>payment/antom_card_visa/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+            <field id="antom_card_mastercard" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Master Enabled]]></label>
+                <config_path>payment/antom_card_mastercard/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+            <field id="antom_card_amex" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Amex Enabled]]></label>
+                <config_path>payment/antom_card_amex/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+            <field id="antom_card_discover" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Discover Enabled]]></label>
+                <config_path>payment/antom_card_discover/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+            <field id="antom_card_unionpay" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Unionpay Enabled]]></label>
+                <config_path>payment/antom_card_unionpay/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+            <field id="antom_card_jcb" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[JCB Enabled]]></label>
+                <config_path>payment/antom_card_jcb/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+            <field id="antom_card_dinser" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Dinser Enabled]]></label>
+                <config_path>payment/antom_card_dinser/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <depends>
+                    <field id="antom_card">1</field>
+                </depends>
+            </field>
+        </group>
+
+        <group id="antom_alipay_cn" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label><![CDATA[Alipay]]></label>
+            <comment><![CDATA[Alipay is the most popular payment method in China]]></comment>
+            <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label><![CDATA[Enabled]]></label>
+                <config_path>payment/antom_alipay_cn/active</config_path>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+        </group>
+    </section>
+</include>

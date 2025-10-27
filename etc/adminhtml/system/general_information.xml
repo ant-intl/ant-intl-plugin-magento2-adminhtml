@@ -1,0 +1,29 @@
+<!--<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">-->
+<!--    <section id="antom_general_info" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="10">-->
+<!--        <class>separator-top</class>-->
+<!--        <label><![CDATA[General Information]]></label>-->
+<!--        <tab>antom</tab>-->
+<!--        <resource>Antom_Adminhtml::configuration</resource>-->
+<!--        <group id="antom_general" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="1">-->
+<!--            <label><![CDATA[General Settings]]></label>-->
+<!--            <field id="environment" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">-->
+<!--                <label><![CDATA[Environment]]></label>-->
+<!--                <config_path>antom/general/environment</config_path>-->
+<!--                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>-->
+<!--            </field>-->
+<!--        </group>-->
+<!--    </section>-->
+<!--</include>-->
+
+
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <section id="antom_support" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+        <class>separator-top</class>
+        <label><![CDATA[General Information]]></label>
+        <tab>antom</tab>
+        <resource>Antom_Adminhtml::configuration</resource>
+        <group id="antom_general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+            <frontend_model>Antom\Adminhtml\Block\Adminhtml\Config\Support\Support</frontend_model>
+        </group>
+    </section>
+</include>

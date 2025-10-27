@@ -1,0 +1,131 @@
+<?php
+
+declare(strict_types=1);
+
+use Antom\Adminhtml\Block\Adminhtml\Config\Support\Support;
+
+// phpcs:disable Generic.Files.LineLength.TooLong
+
+/** @var Magento\Framework\View\TemplateEngine\Php $this */
+/** @var Support $block */
+
+$newVersionData = $block->isNewVersionAvailable()
+?>
+<div id="antom-support" class="antom-support-information">
+    <div id="antom-support-banner"></div>
+    <div class="antom-support-content">
+        <h1 class="antom-info-title">Version information</h1>
+        <div class="antom-support-section">
+            <h2 class="antom-title"><?= $block->getEscaper()->escapeHtml(__('Installed version')) ?></h2>
+            <?php if ($newVersionData): ?>
+                <div class="antom-alert-info antom-margin-bottom-16">
+                    <span>
+                        <?= $block->getEscaper()->escapeHtml(__('New version is available:')) ?>
+                        <a href="<?= $block->getEscaper()->escapeUrl($newVersionData['url']) ?>"
+                        target="_blank"><?= $block->getEscaper()->escapeHtml($newVersionData['version']) ?></a>
+                    </span>
+                    <a href="<?= $block->getEscaper()->escapeUrl($block->getUpdateDocsLink()) ?>"
+                        target="_blank">
+                        <?= $block->getEscaper()->escapeHtml(__('How to update?')) ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+            <table class="antom-version-table">
+                <tr class="antom-no-padding-top">
+                    <td class="antom-version-table-row antom-version-table-row-text">
+                        <?= $block->getEscaper()->escapeHtml(__('Current Antom version:'))?>
+                    </td>
+                    <td class="antom-version-table-row antom-version-table-row-text">
+                        <?= $block->getEscaper()->escapeHtml($block->getModuleVersion()) ?>
+                    </td>
+                </tr>
+            </table>
+            <h2 class="antom-title antom-margin-top-12"><?= $block->getEscaper()->escapeHtml(__('Version support')) ?></h2>
+            <table class="antom-version-table">
+                <tr>
+                    <td class="antom-version-table-row antom-version-table-row-text">
+                        <?= $block->getEscaper()->escapeHtml(__('Open Source'))?>
+                    </td>
+                    <td class="antom-version-table-row antom-version-table-row-text">
+                        <?= $block->getEscaper()->escapeHtml(__('2.3.x, 2.4.x'))?>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="antom-version-table-row antom-version-table-row-text">
+                        <?= $block->getEscaper()->escapeHtml(__('Adobe Commerce'))?>
+                    </td>
+                    <td class="antom-version-table-row antom-version-table-row-text">
+                        <?= $block->getEscaper()->escapeHtml(__('2.3.x, 2.4.x'))?>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="antom-support-section">
+            <h1 class="antom-info-title antom-margin-top-24"><?= $block->getEscaper()->escapeHtml(__('Documentation')) ?></h1>
+            <?php $msg = 'Read our documentation for more information about Antom and how to get started:' ?>
+            <p><?= $block->getEscaper()->escapeHtml(__($msg)) ?></p>
+                <a class="antom-support-button-docs antom-margin-right-12"
+                href="https://docs.multisafepay.com/docs/magento-2"
+                target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.57031 3.71903C2.57031 2.83308 3.28852 2.11487 4.17448 2.11487H11.4661C12.3521 2.11487 13.0703 2.83308 13.0703 3.71903V12.1774C13.0703 13.0633 12.3521 13.7815 11.4661 13.7815H4.17448C3.28852 13.7815 2.57031 13.0633 2.57031 12.1774V3.71903ZM4.17448 2.98987C3.77177 2.98987 3.44531 3.31633 3.44531 3.71903V10.4274H12.1953V3.71903C12.1953 3.31633 11.8689 2.98987 11.4661 2.98987H8.54948V6.48987C8.54948 6.64749 8.46469 6.79292 8.32753 6.87058C8.19037 6.94824 8.02204 6.94612 7.88689 6.86502L6.65365 6.12508L5.4204 6.86502C5.28525 6.94612 5.11692 6.94824 4.97976 6.87058C4.8426 6.79292 4.75781 6.64749 4.75781 6.48987V2.98987H4.17448ZM5.63281 2.98987V5.71716L6.42855 5.23971C6.5671 5.15659 6.74019 5.15659 6.87874 5.23971L7.67448 5.71716V2.98987H5.63281ZM3.44531 12.1774V11.3024H12.1953V12.1774C12.1953 12.5801 11.8689 12.9065 11.4661 12.9065H4.17448C3.77177 12.9065 3.44531 12.5801 3.44531 12.1774Z" fill="#040F24" fill-opacity="0.85"/></svg>
+                    <?= $block->getEscaper()->escapeHtml(__('Manual')) ?>
+                </a>
+                <a class="antom-support-button-docs antom-margin-right-12"
+                href="https://github.com/MultiSafepay/magento2/blob/master/CHANGELOG.md"
+                target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.57031 3.71903C2.57031 2.83308 3.28852 2.11487 4.17448 2.11487H11.4661C12.3521 2.11487 13.0703 2.83308 13.0703 3.71903V12.1774C13.0703 13.0633 12.3521 13.7815 11.4661 13.7815H4.17448C3.28852 13.7815 2.57031 13.0633 2.57031 12.1774V3.71903ZM4.17448 2.98987C3.77177 2.98987 3.44531 3.31633 3.44531 3.71903V10.4274H12.1953V3.71903C12.1953 3.31633 11.8689 2.98987 11.4661 2.98987H8.54948V6.48987C8.54948 6.64749 8.46469 6.79292 8.32753 6.87058C8.19037 6.94824 8.02204 6.94612 7.88689 6.86502L6.65365 6.12508L5.4204 6.86502C5.28525 6.94612 5.11692 6.94824 4.97976 6.87058C4.8426 6.79292 4.75781 6.64749 4.75781 6.48987V2.98987H4.17448ZM5.63281 2.98987V5.71716L6.42855 5.23971C6.5671 5.15659 6.74019 5.15659 6.87874 5.23971L7.67448 5.71716V2.98987H5.63281ZM3.44531 12.1774V11.3024H12.1953V12.1774C12.1953 12.5801 11.8689 12.9065 11.4661 12.9065H4.17448C3.77177 12.9065 3.44531 12.5801 3.44531 12.1774Z" fill="#040F24" fill-opacity="0.85"/></svg>
+                    <?= $block->getEscaper()->escapeHtml(__('Changelog')) ?>
+                </a>
+            <p><?= $block->getEscaper()->escapeHtml(__('For developers:')) ?></p>
+                <a class="antom-support-button-docs antom-margin-right-12"
+                href="https://docs.multisafepay.com/reference/introduction"
+                target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.57031 3.71903C2.57031 2.83308 3.28852 2.11487 4.17448 2.11487H11.4661C12.3521 2.11487 13.0703 2.83308 13.0703 3.71903V12.1774C13.0703 13.0633 12.3521 13.7815 11.4661 13.7815H4.17448C3.28852 13.7815 2.57031 13.0633 2.57031 12.1774V3.71903ZM4.17448 2.98987C3.77177 2.98987 3.44531 3.31633 3.44531 3.71903V10.4274H12.1953V3.71903C12.1953 3.31633 11.8689 2.98987 11.4661 2.98987H8.54948V6.48987C8.54948 6.64749 8.46469 6.79292 8.32753 6.87058C8.19037 6.94824 8.02204 6.94612 7.88689 6.86502L6.65365 6.12508L5.4204 6.86502C5.28525 6.94612 5.11692 6.94824 4.97976 6.87058C4.8426 6.79292 4.75781 6.64749 4.75781 6.48987V2.98987H4.17448ZM5.63281 2.98987V5.71716L6.42855 5.23971C6.5671 5.15659 6.74019 5.15659 6.87874 5.23971L7.67448 5.71716V2.98987H5.63281ZM3.44531 12.1774V11.3024H12.1953V12.1774C12.1953 12.5801 11.8689 12.9065 11.4661 12.9065H4.17448C3.77177 12.9065 3.44531 12.5801 3.44531 12.1774Z" fill="#040F24" fill-opacity="0.85"/></svg>
+                    <?= $block->getEscaper()->escapeHtml(__('API Documentation')) ?>
+                </a>
+                <a class="antom-support-button-docs antom-margin-right-12"
+                href="https://github.com/MultiSafepay/magento2"
+                target="_blank">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M2.57031 3.71903C2.57031 2.83308 3.28852 2.11487 4.17448 2.11487H11.4661C12.3521 2.11487 13.0703 2.83308 13.0703 3.71903V12.1774C13.0703 13.0633 12.3521 13.7815 11.4661 13.7815H4.17448C3.28852 13.7815 2.57031 13.0633 2.57031 12.1774V3.71903ZM4.17448 2.98987C3.77177 2.98987 3.44531 3.31633 3.44531 3.71903V10.4274H12.1953V3.71903C12.1953 3.31633 11.8689 2.98987 11.4661 2.98987H8.54948V6.48987C8.54948 6.64749 8.46469 6.79292 8.32753 6.87058C8.19037 6.94824 8.02204 6.94612 7.88689 6.86502L6.65365 6.12508L5.4204 6.86502C5.28525 6.94612 5.11692 6.94824 4.97976 6.87058C4.8426 6.79292 4.75781 6.64749 4.75781 6.48987V2.98987H4.17448ZM5.63281 2.98987V5.71716L6.42855 5.23971C6.5671 5.15659 6.74019 5.15659 6.87874 5.23971L7.67448 5.71716V2.98987H5.63281ZM3.44531 12.1774V11.3024H12.1953V12.1774C12.1953 12.5801 11.8689 12.9065 11.4661 12.9065H4.17448C3.77177 12.9065 3.44531 12.5801 3.44531 12.1774Z" fill="#040F24" fill-opacity="0.85"/></svg>
+                    <?= $block->getEscaper()->escapeHtml(__('Antom Github')) ?>
+                </a>
+
+            <p class="antom-support-contact">
+                <?= $block->getEscaper()->escapeHtml(__('Didn\'t find a solution or need assistance? Feel free to contact our integration team:')) ?>
+                <a class="antombtn-primary antom-support-button-contact"
+                href="mailto:tech.support.na@service.alipay.com">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.98706 4.88578C1.98706 3.99983 2.70527 3.28162 3.59123 3.28162H12.0496C12.9355 3.28162 13.6537 3.99983 13.6537 4.88578V11.0108C13.6537 11.8967 12.9355 12.615 12.0496 12.615H3.59123C2.70527 12.615 1.98706 11.8967 1.98706 11.0108V4.88578ZM3.59123 4.15662C3.57132 4.15662 3.5516 4.15741 3.53209 4.15898L7.20081 7.83785C7.54271 8.1807 8.09805 8.1807 8.43995 7.83785L12.1087 4.15898C12.0892 4.15741 12.0695 4.15662 12.0496 4.15662H3.59123ZM2.86206 4.88578C2.86206 4.83611 2.86703 4.7876 2.87649 4.74072L6.58124 8.45571C7.26504 9.14141 8.37572 9.14141 9.05953 8.45571L12.7643 4.7407C12.7738 4.78758 12.7787 4.8361 12.7787 4.88578V10.986L10.1837 7.32849L9.55683 7.9571L12.2256 11.7186C12.1692 11.7325 12.1103 11.74 12.0496 11.74H3.59123C3.53063 11.74 3.47177 11.7326 3.41548 11.7186L6.08416 7.9573L5.45729 7.32869L2.86206 10.9865V4.88578Z" fill="#0066FF"/></svg>
+                    <?= $block->getEscaper()->escapeHtml('Contact Us') ?>
+                </a>
+            </p>
+        </div>
+        <div class="antom-support-section">
+            <h1 class="antom-info-title antom-margin-top-32"><?= $block->getEscaper()->escapeHtml(__('Account')) ?></h1>
+            <p class="antom-lh">
+                <?= $block->getEscaper()->escapeHtml(__('To use this plugin you need a Antom account.')) ?>
+                <a class="antombtn-primary antom-support-button-signup"
+                href="https://dashboard.antom.com/global-payments/account/register?bizMode=ISV&isvBizScene=ISO_COMMON&registrationSource=Magento"
+                target="_blank">
+                    <?= $block->getEscaper()->escapeHtml(__('Sign Up')) ?>
+                </a>
+            </p>
+        </div>
+        <h1 class="antom-info-title antom-margin-top-32"><?= $block->getEscaper()->escapeHtml(__('Bring new ideas or make a contribution')) ?></h1>
+        <p class="antom-lh">
+            <?= $block->getEscaper()->escapeHtml(__('We look forward to receiving your input. Have you seen an opportunity to change things for the better?')) ?>
+            <a class="antombtn-primary antom-support-button-contact"
+            href="https://github.com/MultiSafepay/magento2/issues/new?assignees=&labels=&template=feature_request.md&title="
+            target="_blank">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1.98706 4.88578C1.98706 3.99983 2.70527 3.28162 3.59123 3.28162H12.0496C12.9355 3.28162 13.6537 3.99983 13.6537 4.88578V11.0108C13.6537 11.8967 12.9355 12.615 12.0496 12.615H3.59123C2.70527 12.615 1.98706 11.8967 1.98706 11.0108V4.88578ZM3.59123 4.15662C3.57132 4.15662 3.5516 4.15741 3.53209 4.15898L7.20081 7.83785C7.54271 8.1807 8.09805 8.1807 8.43995 7.83785L12.1087 4.15898C12.0892 4.15741 12.0695 4.15662 12.0496 4.15662H3.59123ZM2.86206 4.88578C2.86206 4.83611 2.86703 4.7876 2.87649 4.74072L6.58124 8.45571C7.26504 9.14141 8.37572 9.14141 9.05953 8.45571L12.7643 4.7407C12.7738 4.78758 12.7787 4.8361 12.7787 4.88578V10.986L10.1837 7.32849L9.55683 7.9571L12.2256 11.7186C12.1692 11.7325 12.1103 11.74 12.0496 11.74H3.59123C3.53063 11.74 3.47177 11.7326 3.41548 11.7186L6.08416 7.9573L5.45729 7.32869L2.86206 10.9865V4.88578Z" fill="#0066FF"/></svg>
+                <?= $block->getEscaper()->escapeHtml(__('Feature Request')) ?>
+            </a>
+        </p>
+        <p class="antom-lh">
+            <?= $block->getEscaper()->escapeHtml(__('For developers: Are we missing something and do you know how to fix it? You are welcome to create a pull request on our Github repository')) ?>
+        </p>
+        <p class="antom-lh">
+            <?= $block->getEscaper()->escapeHtml(__('What will you get in return? An awesome t-shirt with a special and unique theme, that is designed specifically by Antom for contributors!')) ?>
+        </p>
+    </div>
+</div>
