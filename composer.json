@@ -1,5 +1,5 @@
 {
-    "name": "antom/magento2-adminhtml",
+    "name": "antom-magento/magento2-adminhtml",
     "description": "Antom payments admin module for magento 2",
     "version": "0.1.0",
     "require": {
