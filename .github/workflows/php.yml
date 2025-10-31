@@ -28,6 +28,11 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+    - name: Set up Magento repo authentication
+      run: composer config --global http-basic.repo.magento.com ${{ secrets.MAGENTO_PUBLIC_KEY }} ${{ secrets.MAGENTO_PRIVATE_KEY }}
+
+    - name: Add Magento repo
+      run: composer config repositories.magento composer https://repo.magento.com/
 
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
