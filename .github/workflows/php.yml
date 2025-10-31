@@ -35,10 +35,12 @@ jobs:
       run: composer config repositories.magento composer https://repo.magento.com/
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
+      run: |
+        composer config --no-plugins allow-plugins.magento/composer-dependency-version-audit-plugin true
+        composer install --no-interaction --prefer-dist
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    - name: Run test suite
+      run: composer run-script test
