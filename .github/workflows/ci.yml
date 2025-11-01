@@ -49,28 +49,28 @@ jobs:
       run: |
         echo "Files in root directory:"
         ls -la
-        echo "Checking if composer.json.ci exists:"
-        if [ -f "composer.json.ci" ]; then
-          echo "✅ composer.json.ci found"
-        else
-          echo "❌ composer.json.ci not found"
-        fi
+#        echo "Checking if composer.json.ci exists:"
+#        if [ -f "composer.json.ci" ]; then
+#          echo "✅ composer.json.ci found"
+#        else
+#          echo "❌ composer.json.ci not found"
+#        fi
 
     - name: Setup CI environment
       run: |
-        # 检查文件存在
-        if [ ! -f "composer.json.ci" ]; then
-          echo "❌ composer.json.ci not found!"
-          exit 1
-        fi
-        
-        # 备份原始 composer.json
-        cp composer.json composer.json.backup
-        
-        # 使用 CI 版本的 composer.json
-        cp composer.json.ci composer.json
-        
-        echo "✅ Switched to CI composer.json"
+#        # 检查文件存在
+#        if [ ! -f "composer.json.ci" ]; then
+#          echo "❌ composer.json.ci not found!"
+#          exit 1
+#        fi
+#
+#        # 备份原始 composer.json
+#        cp composer.json composer.json.backup
+#
+#        # 使用 CI 版本的 composer.json
+#        cp composer.json.ci composer.json
+#
+#        echo "✅ Switched to CI composer.json"
         
         # 验证 composer.json 格式
         composer validate --no-check-all
