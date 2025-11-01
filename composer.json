@@ -18,5 +18,12 @@
         "psr-4": {
             "Antom\\Adminhtml\\": ""
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --configuration phpunit.xml.dist",
+        "test-coverage": [
+            "mkdir -p build/coverage",
+            "vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-html build/coverage"
+        ]
     }
 }
