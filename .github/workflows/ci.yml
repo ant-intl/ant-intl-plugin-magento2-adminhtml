@@ -45,10 +45,10 @@ jobs:
 #    - name: Run test suite
 #      run: composer run-script test
 
-    - name: Debug - Check files before setup
-      run: |
-        echo "Files in root directory:"
-        ls -la
+#    - name: Debug - Check files before setup
+#      run: |
+#        echo "Files in root directory:"
+#        ls -la
 #        echo "Checking if composer.json.ci exists:"
 #        if [ -f "composer.json.ci" ]; then
 #          echo "✅ composer.json.ci found"
