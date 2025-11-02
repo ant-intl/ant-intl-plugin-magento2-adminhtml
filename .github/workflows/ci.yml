@@ -37,6 +37,7 @@ jobs:
     - name: Install dependencies
       run: |
         composer config --no-plugins allow-plugins.magento/composer-dependency-version-audit-plugin true
+        composer config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
         composer install --no-interaction --prefer-dist
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
