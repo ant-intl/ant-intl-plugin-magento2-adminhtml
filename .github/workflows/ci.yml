@@ -20,6 +20,15 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-version }}
+        extensions: bcmath, ctype, curl, dom, gd, hash, iconv, intl, mbstring, openssl, pdo_mysql, simplexml, soap, xsl, zip
+        tools: composer:v2
+        coverage: xdebug
+
+
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v3
