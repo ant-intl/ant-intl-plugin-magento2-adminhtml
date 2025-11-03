@@ -153,7 +153,7 @@ jobs:
         files: ./build/coverage/clover.xml
         directory: ./build/coverage/
         flags: unittests
-        name: antom-core-coverage
+        name: antom-adminhtml-coverage
         fail_ci_if_error: false
         verbose: true
 
@@ -183,7 +183,7 @@ jobs:
         echo "| Metric | Value |" >> $GITHUB_STEP_SUMMARY
         echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
         echo "| PHP Version | ${{ matrix.php-version }} |" >> $GITHUB_STEP_SUMMARY
-        echo "| Module | Antom Core |" >> $GITHUB_STEP_SUMMARY
+        echo "| Module | Antom Adminhtml |" >> $GITHUB_STEP_SUMMARY
         echo "| PHP Files | $(find . -name '*.php' -not -path './vendor/*' -not -path './build/*' | wc -l) |" >> $GITHUB_STEP_SUMMARY
         echo "| Test Files | $(find Test/ -name '*Test.php' 2>/dev/null | wc -l || echo 0) |" >> $GITHUB_STEP_SUMMARY
         if [ -f "build/coverage/clover.xml" ]; then
@@ -196,7 +196,7 @@ jobs:
         echo ""
         echo "✅ CI validation complete"
         echo "📊 PHP version: ${{ matrix.php-version }}"
-        echo "🏗️ Antom Core Module"
+        echo "🏗️ Antom Adminhtml Module"
         echo "📁 PHP files: $(find . -name '*.php' -not -path './vendor/*' -not -path './build/*' | wc -l)"
         echo "📋 Test files: $(find Test/ -name '*Test.php' 2>/dev/null | wc -l || echo 0)"
         if [ -f "build/coverage/clover.xml" ]; then
