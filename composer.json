@@ -2,6 +2,7 @@
     "name": "antom-magento/magento2-adminhtml",
     "description": "Antom payments admin module for magento 2",
     "require": {
+        "antom-magento/magento2-core": "0.1.0",
         "magento/framework": "^102.0|^103.0",
         "magento/module-backend": "^101.0|^102.0",
         "magento/module-config": "^101.2|^102.0",
