@@ -15,7 +15,27 @@
         </testsuite>
     </testsuites>
 
-    <source>
+<!--    <source>-->
+<!--        <include>-->
+<!--            <directory suffix=".php">.</directory>-->
+<!--        </include>-->
+<!--        <exclude>-->
+<!--            <directory>vendor</directory>-->
+<!--            <directory>Test</directory>-->
+<!--            <directory>build</directory>-->
+<!--            <file>registration.php</file>-->
+<!--        </exclude>-->
+<!--    </source>-->
+
+<!--    <coverage>-->
+<!--        <report>-->
+<!--            <clover outputFile="build/coverage/clover.xml"/>-->
+<!--            <html outputDirectory="build/coverage/html"/>-->
+<!--            <xml outputDirectory="build/coverage/coverage-xml"/>-->
+<!--        </report>-->
+<!--    </coverage>-->
+
+    <coverage>
         <include>
             <directory suffix=".php">.</directory>
         </include>
@@ -25,9 +45,6 @@
             <directory>build</directory>
             <file>registration.php</file>
         </exclude>
-    </source>
-
-    <coverage>
         <report>
             <clover outputFile="build/coverage/clover.xml"/>
             <html outputDirectory="build/coverage/html"/>
