@@ -1,6 +1,6 @@
 {
     "version": "1.0.0",
-    "name": "antom-magento/magento2-adminhtml",
+    "name": "antom/magento2-adminhtml",
     "description": "Antom payments admin module for magento 2",
     "require": {
         "magento/framework": ">=103.0.0 <105.0.0",
@@ -9,7 +9,7 @@
         "magento/module-customer": ">=103.0.0 <105.0.0"
     },
     "require-dev": {
-        "antom-magento/magento2-core": "1.0.0",
+        "antom/magento2-core": "1.0.0",
         "phpunit/phpunit": "^9.6",
         "php-http/mock-client": "^1.3",
         "magento/magento-coding-standard": "^31.0",
