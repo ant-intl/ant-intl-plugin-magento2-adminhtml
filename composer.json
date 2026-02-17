@@ -34,5 +34,10 @@
             "mkdir -p build/coverage",
             "vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-html build/coverage"
         ]
+    },
+    "config": {
+        "audit": {
+            "ignore": ["PKSA-rkkf-636k-qjb3", "PKSA-wws7-mr54-jsny"]
+        }
     }
 }

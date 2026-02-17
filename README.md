@@ -15,7 +15,7 @@ Antom Payment Adminhtml Module for Magento 2. This module provides the admin fun
 
 This module can be installed via composer:
 ```
-composer require antom-magento/magento2-adminhtml
+composer require antom/magento2-adminhtml
 ```
 Next, enable the module:
 ```

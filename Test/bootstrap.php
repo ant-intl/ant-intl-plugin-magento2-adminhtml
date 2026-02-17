@@ -35,8 +35,37 @@ if (!defined('TESTS_TEMP_DIR')) {
 // 创建必要的临时目录
 $mockDir = TESTS_TEMP_DIR . '/generated_mocks';
 if (!is_dir($mockDir)) {
+    // 使用 @ 抑制在并发环境中可能出现的目录已存在警告
     @mkdir($mockDir, 0777, true);
 }
+
+/**
+ * 将类/接口代码写入临时文件并加载，作为 eval() 的安全替代方案。
+ *
+ * @param string $classCode The PHP code to generate the class/interface.
+ * @throws RuntimeException If a temporary file cannot be created.
+ */
+function generateAndLoadClassSafe(string $classCode): void
+{
+    global $mockDir; // 使用全局定义的 mock 目录
+
+    // 如果 $mockDir 不是字符串或目录无法使用，则退回系统临时目录
+    if (empty($mockDir) || !is_dir($mockDir)) {
+        $mockDir = sys_get_temp_dir();
+    }
+
+    $filePath = tempnam($mockDir, 'mock_class_');
+    if ($filePath === false) {
+        throw new RuntimeException("Could not create temporary file in {$mockDir}");
+    }
+
+    // 将 <?php 标记和类代码写入文件
+    file_put_contents($filePath, "<?php\n\n" . $classCode);
+
+    // 加载文件
+    require_once $filePath;
+}
+
 
 // 2. 设置 Magento generated 目录
 $generatedPaths = [
@@ -51,28 +80,6 @@ foreach ($generatedPaths as $generatedPath) {
     }
 }
 
-/**
- * 将类/接口代码写入临时文件并加载，作为 eval() 的安全替代方案。
- *
- * @param string $classCode The PHP code to generate the class/interface.
- */
-function generateAndLoadClassSafe(string $classCode): void
-{
-    global $mockDir; // 使用全局定义的 mock 目录
-    // 使用 tempnam 创建一个唯一的文件名以避免冲突
-    $filePath = tempnam($mockDir, 'mock_class_');
-    if ($filePath === false) {
-        throw new RuntimeException("Could not create temporary file in {$mockDir}");
-    }
-
-    // 将 <?php 标记和类代码写入文件
-    file_put_contents($filePath, "<?php\n\n" . $classCode);
-
-    // 加载文件
-    require_once $filePath;
-}
-
-
 // 3. 定义 Mock 类和接口创建函数
 function createMockClass(string $fullClassName, array $methods = [], bool $isInterface = false): void
 {
@@ -86,6 +93,7 @@ function createMockClass(string $fullClassName, array $methods = [], bool $isInt
 
     $methodsCode = '';
     foreach ($methods as $method => $returnValue) {
+        // var_export 可以正确处理所有类型，包括字符串、null和布尔值
         $returnCode = var_export($returnValue, true);
 
         if ($isInterface) {
@@ -119,10 +127,10 @@ $methodsCode$extraMethods
 
 // 4. 创建必要的接口（简化版本，避免参数冲突）
 $mockInterfaces = [
-    'Magento\Framework\App\Config\ScopeConfigInterface' => [
-        'getValue' => null,
-        'isSetFlag' => false
-    ],
+//    'Magento\Framework\App\Config\ScopeConfigInterface' => [
+//        'getValue' => null,
+//        'isSetFlag' => false
+//    ],
     'Magento\Payment\Gateway\Validator\ResultInterfaceFactory' => [
         'create' => null
     ]
@@ -134,59 +142,26 @@ foreach ($mockInterfaces as $interfaceName => $methods) {
 
 // 5. 创建必要的 Mock 类
 $mockClasses = [
-    'Magento\Sales\Model\Order' => [
-        'loadByIncrementId' => null,
-        'getId' => null,
-        'getPayment' => null,
-        'setId' => null,
-        'setPayment' => null,
-        'getIncrementId' => null,
-        'getState' => null,
-        'setState' => null,
-        'getStatus' => null,
-        'setStatus' => null,
-        'save' => null
-    ],
-    'Magento\Sales\Model\OrderFactory' => [
-        'create' => null
-    ],
+//    'Magento\Sales\Model\Order' => [
+//        'loadByIncrementId' => null, 'getId' => null, 'getPayment' => null, 'setId' => null,
+//        'setPayment' => null, 'getIncrementId' => null, 'getState' => null, 'setState' => null,
+//        'getStatus' => null, 'setStatus' => null, 'save' => null
+//    ],
+    'Magento\Sales\Model\OrderFactory' => ['create' => null],
     'Magento\Sales\Model\Order\Payment' => [
-        'getAdditionalInformation' => null,
-        'setAdditionalInformation' => null,
-        'getMethod' => 'mock_method',
-        'getMethodInstance' => null,
-        'setMethod' => null,
-        'getOrder' => null,
-        'setOrder' => null
+        'getAdditionalInformation' => null, 'setAdditionalInformation' => null, 'getMethod' => 'mock_method',
+        'getMethodInstance' => null, 'setMethod' => null, 'getOrder' => null, 'setOrder' => null
     ],
-    'Magento\Quote\Model\QuoteFactory' => [
-        'create' => null
-    ],
+    'Magento\Quote\Model\QuoteFactory' => ['create' => null],
     'Magento\Quote\Model\Quote' => [
-        'getId' => null,
-        'getReservedOrderId' => null,
-        'setReservedOrderId' => null,
-        'collectTotals' => null,
-        'save' => null
+        'getId' => null, 'getReservedOrderId' => null, 'setReservedOrderId' => null,
+        'collectTotals' => null, 'save' => null
     ],
-    'Magento\Framework\DB\TransactionFactory' => [
-        'create' => null
-    ],
-    'Magento\Framework\DB\Transaction' => [
-        'addObject' => null,
-        'save' => null
-    ],
-    'Magento\Framework\Controller\ResultFactory' => [
-        'create' => null
-    ],
-    'Magento\Framework\Controller\Result\Json' => [
-        'setData' => null,
-        'setHttpResponseCode' => null
-    ],
-    'Magento\Framework\Controller\Result\Redirect' => [
-        'setUrl' => null,
-        'setPath' => null
-    ]
+    'Magento\Framework\DB\TransactionFactory' => ['create' => null],
+    'Magento\Framework\DB\Transaction' => ['addObject' => null, 'save' => null],
+//    'Magento\Framework\Controller\ResultFactory' => ['create' => null],
+    'Magento\Framework\Controller\Result\Json' => ['setData' => null, 'setHttpResponseCode' => null],
+    'Magento\Framework\Controller\Result\Redirect' => ['setUrl' => null, 'setPath' => null]
 ];
 
 foreach ($mockClasses as $className => $methods) {
@@ -197,11 +172,11 @@ foreach ($mockClasses as $className => $methods) {
 if (interface_exists('Magento\Framework\App\Config\ScopeConfigInterface')) {
     if (!class_exists('MockScopeConfig')) {
         generateAndLoadClassSafe('
-        class MockScopeConfig implements Magento\Framework\App\Config\ScopeConfigInterface {
-            public function getValue($path, $scopeType = null, $scopeCode = null) { return null; }
-            public function isSetFlag($path, $scopeType = null, $scopeCode = null) { return false; }
+        class MockScopeConfig {
+            public function getValue($path = null, $scopeType = null, $scopeCode = null) { return null; }
+            public function isSetFlag($path = null, $scopeType = null, $scopeCode = null) { return false; }
         }
-        ');
+    ');
     }
 }
 
