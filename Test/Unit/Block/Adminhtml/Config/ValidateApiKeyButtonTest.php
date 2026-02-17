@@ -205,7 +205,10 @@ class ValidateApiKeyButtonTest extends TestCase
                 ['store', null, 5]
             ]);
 
-        $websiteMock = $this->createMock(Website::class);
+        $websiteMock = $this->getMockBuilder(Website::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getStoreIds'])
+            ->getMock();
         $websiteMock->method('getStoreIds')->willReturn([1, 2, 3]);
 
         $this->storeManagerMock->method('getWebsite')
@@ -218,7 +221,10 @@ class ValidateApiKeyButtonTest extends TestCase
 
     public function testGetStoreIdReturnsStoreFromWebsiteWhenWebsiteProvided(): void
     {
-        $websiteMock = $this->createMock(Website::class);
+        $websiteMock = $this->getMockBuilder(Website::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getStoreIds'])
+            ->getMock();
         $websiteMock->method('getStoreIds')->willReturn([1, 2, 3]);
 
         $this->requestMock->method('getParam')
@@ -251,7 +257,10 @@ class ValidateApiKeyButtonTest extends TestCase
 
     public function testGetStoreIdWithWebsiteHavingNoStores(): void
     {
-        $websiteMock = $this->createMock(Website::class);
+        $websiteMock = $this->getMockBuilder(Website::class)
+            ->disableOriginalConstructor()
+            ->addMethods(['getStoreIds'])
+            ->getMock();
         $websiteMock->method('getStoreIds')->willReturn([]);
 
         $this->requestMock->method('getParam')
@@ -271,6 +280,10 @@ class ValidateApiKeyButtonTest extends TestCase
 
     public function testGetElementHtmlThrowsLocalizedException(): void
     {
+        $reflection = new \ReflectionClass(ValidateApiKeyButton::class);
+        $method = $reflection->getMethod('_getElementHtml');
+        $method->setAccessible(true);
+
         $this->expectException(LocalizedException::class);
 
         $elementMock = $this->createMock(AbstractElement::class);
@@ -279,6 +292,6 @@ class ValidateApiKeyButtonTest extends TestCase
         $this->layoutMock->method('createBlock')
             ->willThrowException(new LocalizedException(__('Test exception')));
 
-        $this->validateApiKeyButton->_getElementHtml($elementMock);
+        $method->invoke($this->validateApiKeyButton, $elementMock);
     }
 }

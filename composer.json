@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "name": "antom/magento2-adminhtml",
     "description": "Antom payments admin module for magento 2",
     "require": {
@@ -9,7 +9,7 @@
         "magento/module-customer": ">=103.0.0 <105.0.0"
     },
     "require-dev": {
-        "antom/magento2-core": "1.0.0",
+        "antom/magento2-core": "1.1.0",
         "phpunit/phpunit": "^9.6",
         "php-http/mock-client": "^1.3",
         "magento/magento-coding-standard": "^31.0",
@@ -34,5 +34,10 @@
             "mkdir -p build/coverage",
             "vendor/bin/phpunit --configuration phpunit.xml.dist --coverage-html build/coverage"
         ]
+    },
+    "config": {
+        "audit": {
+            "ignore": ["PKSA-rkkf-636k-qjb3", "PKSA-wws7-mr54-jsny"]
+        }
     }
 }
